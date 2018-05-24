@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     // file that the program will "run off"
+
+    private int numBrothers = 0;
+    private int numSisters = 0;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -53,6 +57,14 @@ public class Main extends Application {
         }
     }
 
+
+    private ArrayList countBrothers() {
+
+    }
+
+    private ArrayList countSisters() {
+
+    }
 
     public static void main(String[] args) {
         launch(args);

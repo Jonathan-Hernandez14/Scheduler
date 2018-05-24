@@ -1,7 +1,6 @@
 package sample;
 
-public class Brother<T> {
-
+public class Sister {
     private String name;
     private int uniqueID;
     private boolean underage;
@@ -10,12 +9,12 @@ public class Brother<T> {
     /**
      * Constructor to make Brother object
      * @param name Name of the individual. First and Last in that order
-     * @param id Number sequence that distinguishes an individual. Also is place in the ArrayList of Brothers when list
-     *           of all participating brothers are made.
+     * @param id Number sequence that distinguishes an individual. Also is place in the ArrayList of Sister when list
+     *           of all participating sisters are made.
      * @param underage Boolean stating if the person is underage, if so then this person cannot be paired with another
      *                 person that is also underage
      */
-    public Brother(String name, int id, boolean underage) {
+    public Sister(String name, int id, boolean underage) {
         this.name = name;
         this.uniqueID = id;
         this.underage = underage;
@@ -35,5 +34,4 @@ public class Brother<T> {
     public boolean isUnderAge() {
         return underage;
     }
-
 }
