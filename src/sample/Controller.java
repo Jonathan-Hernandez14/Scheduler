@@ -36,8 +36,14 @@ public class Controller {
 
     }
 
-    public void printList() {
-
+    @FXML
+    public void printList() throws FileNotFoundException {
+        PrintWriter output = new PrintWriter("final.txt");
+        for (ArrayList<String> combo : finalResult) {
+            output.println(combo);
+        }
+        output.close();
+        System.out.println("File printed");
     }
 
 //---------------------------------------------------------------------------
