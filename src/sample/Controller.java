@@ -17,15 +17,21 @@ public class Controller {
     @FXML
     public void readList() throws IOException {
         int numLines = 0;
-        File file = new File("E:\\Docs\\3 - project\\Scheduler\\src\\sample\\People Lists\\Friday1-3.txt");
+        //Todo: Remember to change the Path name
+        File file = new File("C:\\Users\\Jonathan\\Documents\\PROJ\\Scheduler\\src\\sample\\People Lists\\Friday1-3.txt");
         BufferedReader buffer = new BufferedReader(new FileReader(file));
-
+        ArrayList<String> people = new ArrayList<String>();
         String line;
         while ((line = buffer.readLine()) != null) {
             System.out.println(line);
+            people.add(line);
             numLines++;
         }
+
         System.out.println(numLines);
+        ArrayList peopleComb = combine2(people, 2);
+        System.out.println(peopleComb);
+
     }
 
 
@@ -78,7 +84,7 @@ public class Controller {
 
         ArrayList<String> item = new ArrayList<String>();
 
-        dfs2(list, k, 1, item, result); // because it need to begin from 1
+        dfs2(list, k, 0, item, result); // because it need to begin from 1
 
         return result;
     }
@@ -91,9 +97,9 @@ public class Controller {
             return;
         }
 
-        for (int i = start; i <= n; i++) {
-            item.add(i);
-            dfs2(n, k, i + 1, item, res);
+        for (int i = start; i < list.size(); i++) {
+            item.add(list.get(i));
+            dfs2(list, k, i + 1, item, res);
             item.remove(item.size() - 1);
         }
     }
