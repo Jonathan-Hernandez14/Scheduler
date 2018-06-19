@@ -8,7 +8,16 @@ import java.util.ArrayList;
 // class that controls what the UI does when interacted with
 public class Controller {
 
+    //Friday combination list
     private ArrayList<ArrayList<String>> finalResult;
+
+    //Saturday combination lists
+    private ArrayList<ArrayList<String>> saturdayResultMorning;
+    private ArrayList<ArrayList<String>> saturdayResultNoon;
+    private ArrayList<ArrayList<String>> saturdayResultEvening;
+
+    //Sunday combination list
+    private ArrayList<ArrayList<String>> SundayResult;
 
     @FXML
     public void printSomething() {
@@ -21,7 +30,7 @@ public class Controller {
     public void readList() throws IOException {
         int numLines = 0;
         //Todo: Remember to change the Path name
-        File file = new File("C:\\Users\\Jonathan\\Documents\\PROJ\\Scheduler\\src\\sample\\People Lists\\Friday1-3.txt");
+        File file = new File("C:\\Users\\Jonathan\\Documents\\PROJ\\Scheduler\\src\\sample\\People Lists\\MasterList.txt");
         BufferedReader buffer = new BufferedReader(new FileReader(file));
         ArrayList<String> people = new ArrayList<String>();
         String line;

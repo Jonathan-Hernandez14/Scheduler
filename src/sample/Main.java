@@ -24,14 +24,6 @@ public class Main extends Application {
 
     }
 
-    private ArrayList countBrothers() {
-        return null;
-    }
-
-    private ArrayList countSisters() {
-        return null;
-    }
-
     public static void main(String[] args) {
         launch(args);
     }
