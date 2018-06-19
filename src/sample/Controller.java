@@ -1,7 +1,7 @@
 package sample;
 
 import javafx.fxml.FXML;
-
+import java.io.*;
 import java.util.ArrayList;
 
 // class that controls what the UI does when interacted with
@@ -9,10 +9,26 @@ public class Controller {
 
     @FXML
     public void printSomething() {
-        System.out.println("button pressed");
+        System.out.println("Beginning combinations");
         ArrayList combinations = combine(4, 2);
         System.out.println(combinations);
     }
+
+    @FXML
+    public void readList() throws IOException {
+        int numLines = 0;
+        File file = new File("E:\\Docs\\3 - project\\Scheduler\\src\\sample\\People Lists\\Friday1-3.txt");
+        BufferedReader buffer = new BufferedReader(new FileReader(file));
+
+        String line;
+        while ((line = buffer.readLine()) != null) {
+            System.out.println(line);
+            numLines++;
+        }
+        System.out.println(numLines);
+    }
+
+
 
     /**
      * method that makes list of possible combinations of n choose k
@@ -32,8 +48,7 @@ public class Controller {
         return result;
     }
 
-    private void dfs(int n, int k, int start, ArrayList<Integer> item,
-                     ArrayList<ArrayList<Integer>> res) {
+    private void dfs(int n, int k, int start, ArrayList<Integer> item, ArrayList<ArrayList<Integer>> res) {
         if (item.size() == k) {
             res.add(new ArrayList<Integer>(item));
             return;
@@ -46,6 +61,41 @@ public class Controller {
         }
     }
 
+    //-------------------------------------------------------------------------------------------------
 
+    /**
+     *  Method that uses array list of type string rather than numbers
+     * @param list
+     * @param k
+     * @return
+     */
+    public ArrayList<ArrayList<String>> combine2(ArrayList<String> list, int k) {
+
+        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+
+        if (list.size() <= 0 || list.size() < k)
+            return result;
+
+        ArrayList<String> item = new ArrayList<String>();
+
+        dfs2(list, k, 1, item, result); // because it need to begin from 1
+
+        return result;
+    }
+
+    private void dfs2(ArrayList<String> list, int k, int start, ArrayList<String> item, ArrayList<ArrayList<String>> res) {
+
+        //Once result element has two names in it then it is added to the
+        if (item.size() == k) {
+            res.add(new ArrayList<String>(item));
+            return;
+        }
+
+        for (int i = start; i <= n; i++) {
+            item.add(i);
+            dfs2(n, k, i + 1, item, res);
+            item.remove(item.size() - 1);
+        }
+    }
 
 }
