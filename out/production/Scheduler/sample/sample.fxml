@@ -14,12 +14,18 @@
             GridPane.rowIndex="1"
             text="Press for test"
             onAction="#printSomething"
-    />
+            />
     <Button
             GridPane.columnIndex="0"
             GridPane.rowIndex="2"
             text="Press to load List"
             onAction="#readList"
-    />
+            />
+    <Button
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="3"
+            text="Press to make file"
+            onAction="#printList"
+            />
 
 </GridPane>

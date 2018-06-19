@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import java.io.*;
 import java.util.ArrayList;
 
+
 // class that controls what the UI does when interacted with
 public class Controller {
+
+    private ArrayList<ArrayList<String>> finalResult;
 
     @FXML
     public void printSomething() {
@@ -27,14 +30,17 @@ public class Controller {
             people.add(line);
             numLines++;
         }
-
         System.out.println(numLines);
-        ArrayList peopleComb = combine2(people, 2);
-        System.out.println(peopleComb);
+        finalResult = combine2(people, 2);
+        System.out.println(finalResult);
 
     }
 
+    public void printList() {
 
+    }
+
+//---------------------------------------------------------------------------
 
     /**
      * method that makes list of possible combinations of n choose k
@@ -71,7 +77,7 @@ public class Controller {
 
     /**
      *  Method that uses array list of type string rather than numbers
-     * @param list
+     * @param list - Array list of the people combinations that
      * @param k
      * @return
      */
@@ -103,5 +109,4 @@ public class Controller {
             item.remove(item.size() - 1);
         }
     }
-
 }
