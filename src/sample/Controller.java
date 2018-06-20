@@ -30,7 +30,7 @@ public class Controller {
     public void readList() throws IOException {
         int numLines = 0;
         //Todo: Remember to change the Path name
-        File file = new File("C:\\Users\\Jonathan\\Documents\\PROJ\\Scheduler\\src\\sample\\People Lists\\MasterList.txt");
+        File file = new File("E:\\Docs\\3 - project\\Scheduler\\src\\sample\\People Lists\\Friday1-3.txt");
         BufferedReader buffer = new BufferedReader(new FileReader(file));
         ArrayList<String> people = new ArrayList<String>();
         String line;
