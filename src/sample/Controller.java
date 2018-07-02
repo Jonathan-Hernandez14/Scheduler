@@ -3,21 +3,16 @@ package sample;
 import javafx.fxml.FXML;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 // class that controls what the UI does when interacted with
 public class Controller {
 
-    //Friday combination list
-    private ArrayList<ArrayList<String>> finalResult;
+    //Test file names for files
+    private ArrayList<String> txtFileNames = new ArrayList<>();
 
-    //Saturday combination lists
-    private ArrayList<ArrayList<String>> saturdayResultMorning;
-    private ArrayList<ArrayList<String>> saturdayResultNoon;
-    private ArrayList<ArrayList<String>> saturdayResultEvening;
-
-    //Sunday combination list
-    private ArrayList<ArrayList<String>> SundayResult;
+    private LinkedList<ArrayList<ArrayList<String>>> combinationLists = new LinkedList<>();
 
     @FXML
     public void printSomething() {
@@ -28,31 +23,52 @@ public class Controller {
 
     @FXML
     public void readList() throws IOException {
-        int numLines = 0;
-        //Todo: Remember to change the Path name
-        File file = new File("E:\\Docs\\3 - project\\Scheduler\\src\\sample\\People Lists\\Friday1-3.txt");
-        BufferedReader buffer = new BufferedReader(new FileReader(file));
-        ArrayList<String> people = new ArrayList<String>();
-        String line;
-        while ((line = buffer.readLine()) != null) {
-            System.out.println(line);
-            people.add(line);
-            numLines++;
-        }
-        System.out.println(numLines);
-        finalResult = combine2(people, 2);
-        System.out.println(finalResult);
 
+       // txtFileNames.add("Friday1-3.txt");
+
+//        txtFileNames.add("Friday1-3.txt");
+
+        txtFileNames.add("B-Saturday10-12.txt");
+        txtFileNames.add("B-Saturday12-2.txt");
+        txtFileNames.add("B-Saturday2-4.txt");
+        txtFileNames.add("B-Sunday9-11.txt");
+
+        txtFileNames.add("Friday1-3.txt");
+        txtFileNames.add("S-Saturday10-12.txt");
+        txtFileNames.add("S-Saturday12-2.txt");
+        txtFileNames.add("S-Saturday2-4.txt");
+        txtFileNames.add("S-Sunday9-11.txt");
+
+
+        //Todo: Remember to change the Path name
+
+        for (String toAdd: txtFileNames) {
+
+            File currFile = new File("E:\\Docs\\3 - project\\Scheduler\\src\\sample\\People Lists\\" + toAdd);
+
+            BufferedReader buffer = new BufferedReader(new FileReader(currFile));
+            ArrayList<String> people = new ArrayList<String>();
+            String line;
+            while ((line = buffer.readLine()) != null) {
+                people.add(line);
+            }
+            combinationLists.add(combine2(people, 2));
+        }
     }
 
     @FXML
     public void printList() throws FileNotFoundException {
-        PrintWriter output = new PrintWriter("final.txt");
-        for (ArrayList<String> combo : finalResult) {
-            output.println(combo);
+
+        int num = 0;
+        for (ArrayList <ArrayList<String>> currList : combinationLists) {
+            PrintWriter output = new PrintWriter("final" + num + ".txt");
+            for (ArrayList<String> combo : currList) {
+                output.println(combo);
+            }
+            output.close();
+            System.out.println("File printed");
+            num++;
         }
-        output.close();
-        System.out.println("File printed");
     }
 
 //---------------------------------------------------------------------------
