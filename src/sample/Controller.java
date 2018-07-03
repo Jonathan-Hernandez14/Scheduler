@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 
 // class that controls what the UI does when interacted with
@@ -12,7 +13,7 @@ public class Controller {
     //Test file names for files
     private ArrayList<String> txtFileNames = new ArrayList<>();
 
-    private LinkedList<ArrayList<ArrayList<String>>> combinationLists = new LinkedList<>();
+    private LinkedList<LinkedList<ArrayList<String>>> combinationLists = new LinkedList<>();
 
     @FXML
     public void printSomething() {
@@ -24,27 +25,26 @@ public class Controller {
     @FXML
     public void readList() throws IOException {
 
-       // txtFileNames.add("Friday1-3.txt");
-
-//        txtFileNames.add("Friday1-3.txt");
-
-        txtFileNames.add("B-Saturday10-12.txt");
-        txtFileNames.add("B-Saturday12-2.txt");
-        txtFileNames.add("B-Saturday2-4.txt");
-        txtFileNames.add("B-Sunday9-11.txt");
-
         txtFileNames.add("Friday1-3.txt");
-        txtFileNames.add("S-Saturday10-12.txt");
-        txtFileNames.add("S-Saturday12-2.txt");
-        txtFileNames.add("S-Saturday2-4.txt");
-        txtFileNames.add("S-Sunday9-11.txt");
+
+//        txtFileNames.add("B-Saturday10-12.txt");
+//        txtFileNames.add("B-Saturday12-2.txt");
+//        txtFileNames.add("B-Saturday2-4.txt");
+//        txtFileNames.add("B-Sunday9-11.txt");
+//
+//        txtFileNames.add("Friday1-3.txt");
+//        txtFileNames.add("S-Saturday10-12.txt");
+//        txtFileNames.add("S-Saturday12-2.txt");
+//        txtFileNames.add("S-Saturday2-4.txt");
+//        txtFileNames.add("S-Sunday9-11.txt");
 
 
         //Todo: Remember to change the Path name
 
         for (String toAdd: txtFileNames) {
 
-            File currFile = new File("E:\\Docs\\3 - project\\Scheduler\\src\\sample\\People Lists\\" + toAdd);
+            //File currFile = new File("E:\\Docs\\3 - project\\Scheduler\\src\\sample\\People Lists\\" + toAdd);
+            File currFile = new File("C:\\Users\\Jonathan\\Documents\\PROJ\\Scheduler\\src\\sample\\People Lists\\" + toAdd);
 
             BufferedReader buffer = new BufferedReader(new FileReader(currFile));
             ArrayList<String> people = new ArrayList<String>();
@@ -54,13 +54,15 @@ public class Controller {
             }
             combinationLists.add(combine2(people, 2));
         }
+
+        System.out.println("list loaded");
     }
 
     @FXML
     public void printList() throws FileNotFoundException {
 
         int num = 0;
-        for (ArrayList <ArrayList<String>> currList : combinationLists) {
+        for (LinkedList <ArrayList<String>> currList : combinationLists) {
             PrintWriter output = new PrintWriter("final" + num + ".txt");
             for (ArrayList<String> combo : currList) {
                 output.println(combo);
@@ -69,9 +71,39 @@ public class Controller {
             System.out.println("File printed");
             num++;
         }
+
+
     }
 
-//---------------------------------------------------------------------------
+    @FXML
+    public void genWeek() {
+        Random rand = new Random();
+        int randNum;
+        ArrayList<String> chosenPair;
+
+        for (LinkedList <ArrayList<String>> currList : combinationLists) {
+            //get random pair
+            randNum = rand.nextInt(currList.size());
+            chosenPair = currList.get(randNum);
+            System.out.println(chosenPair);
+            //delete from this list and the rest the pair that was chosen.
+
+            //Todo: concurrent modification exception. cannot modify while iterating through the list use iterator directly
+            for (LinkedList <ArrayList<String>> currList2 : combinationLists) {
+                for(ArrayList<String> currCombo : currList2) {
+                    if (currCombo.get(0).equals(chosenPair.get(0)) || currCombo.get(0).equals(chosenPair.get(1)) || currCombo.get(1).equals(chosenPair.get(0)) || currCombo.get(1).equals(chosenPair.get(1))) {
+                        currList2.remove(currCombo);
+                    }
+                }
+            }
+        }
+
+
+        System.out.println("-------------------");
+    }
+
+    //---------------------------------------------------------------------------
+    // version of the algo that only deals with numbers
 
     /**
      * method that makes list of possible combinations of n choose k
@@ -112,25 +144,25 @@ public class Controller {
      * @param k
      * @return
      */
-    public ArrayList<ArrayList<String>> combine2(ArrayList<String> list, int k) {
+    private LinkedList<ArrayList<String>> combine2(ArrayList<String> list, int k) {
 
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+        LinkedList<ArrayList<String>> result = new LinkedList<>();
 
         if (list.size() <= 0 || list.size() < k)
             return result;
 
-        ArrayList<String> item = new ArrayList<String>();
+        ArrayList<String> item = new ArrayList<>();
 
         dfs2(list, k, 0, item, result); // because it need to begin from 1
 
         return result;
     }
 
-    private void dfs2(ArrayList<String> list, int k, int start, ArrayList<String> item, ArrayList<ArrayList<String>> res) {
+    private void dfs2(ArrayList<String> list, int k, int start, ArrayList<String> item, LinkedList<ArrayList<String>> res) {
 
         //Once result element has two names in it then it is added to the
         if (item.size() == k) {
-            res.add(new ArrayList<String>(item));
+            res.add(new ArrayList<>(item));
             return;
         }
 

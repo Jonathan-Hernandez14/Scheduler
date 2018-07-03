@@ -27,5 +27,11 @@
             text="Press to make file"
             onAction="#printList"
             />
+    <Button
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="4"
+            text="Generate week"
+            onAction="#genWeek"
+    />
 
 </GridPane>
